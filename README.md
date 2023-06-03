@@ -1,24 +1,33 @@
-=== Simple Custom Post Type ===
-Contributors: yourusername
-Tags: custom post type, custom taxonomy
-Requires at least: 4.0
-Tested up to: 5.9
-Stable tag: 1.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+# Simple Custom Post Type WordPress Plugin
 
-A simple plugin to create a custom post type and a custom taxonomy for it.
+A simple WordPress plugin that creates a custom post type called "Custom Post" and a custom taxonomy called "Custom Category" for it. The custom post type supports title, editor, and thumbnail.
 
-== Description ==
+## Installation
 
-This plugin creates a custom post type called "Custom Post" and a custom taxonomy called "Custom Category" for it. The custom post type supports title, editor, and thumbnail.
+1. Clone the repository or download the files to your local machine.
+2. Upload the `simple-custom-post-type` folder to the `/wp-content/plugins/` directory of your WordPress installation.
+3. Log in to your WordPress admin dashboard, navigate to the 'Plugins' menu, and activate the 'Simple Custom Post Type' plugin.
 
-== Installation ==
+## Usage
 
-1. Upload the `simple-custom-post-type` folder to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
+After activating the plugin, you will see a new menu item called "Custom Posts" in your WordPress admin dashboard. You can create new custom posts and assign custom categories to them.
 
-== Changelog ==
+To display custom posts on your website, you can use the standard WordPress loop with a custom query, like this:
 
-= 1.0 =
-* Initial release.
+```php
+$args = array(
+    'post_type' => 'custom_post',
+    'posts_per_page' => 10,
+);
+
+$query = new WP_Query($args);
+
+if ($query->have_posts()) {
+    while ($query->have_posts()) {
+        $query->the_post();
+        // Display the custom post content here
+    }
+    wp_reset_postdata();
+} else {
+    // No custom posts found
+}
